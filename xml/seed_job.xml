@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- parameters:
+  0: layername
+  1: bbox minx
+  2: bbox miny
+  3: bbox maxx
+  4: bbox maxy
+  5: gridsetId
+  6: min zoomlevel
+  7: max zoomlevel
+  8: action type(seed, reseed, truncate)
+  9: style
+-->
+<seedRequest>
+  <name>{0}</name>
+  <bounds>
+    <coords>
+      <double>{1}</double>
+      <double>{2}</double>
+      <double>{3}</double>
+      <double>{4}</double>
+    </coords>
+  </bounds>
+
+  <!-- These are listed on http://localhost:8080/geoserver/gwc/demo -->
+  <gridSetId>{5}</gridSetId>
+  <zoomStart>{6}</zoomStart>
+  <zoomStop>{7}</zoomStop>
+  <format>image/png</format>
+
+  <!-- type can be seed, reseed, or truncate -->
+  <type>{8}</type>
+
+  <!-- Number of seeding threads to run in parallel.
+       If type == truncate only one thread will be used
+       regardless of this parameter -->
+  <threadCount>1</threadCount>
+  <!-- Parameter filters -->
+  <parameters>
+    <entry>
+      <string>STYLES</string>
+      <string>{9}</string>
+    </entry>
+  </parameters>
+</seedRequest>

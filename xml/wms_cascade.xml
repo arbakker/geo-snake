@@ -1,0 +1,19 @@
+<wmsStore>
+	<name>{0}</name>
+	<type>WMS</type>
+	<enabled>true</enabled>
+	<workspace>
+		<name>{1}</name><atom:link rel="alternate" href="{2}/rest/workspaces/{1}.xml" type="application/xml"/>
+	</workspace>
+	<metadata>
+		<entry key="useConnectionPooling">true</entry>
+	</metadata>
+	<__default>false</__default>
+	<capabilitiesURL>{3}</capabilitiesURL>
+	<maxConnections>6</maxConnections>
+	<readTimeout>60</readTimeout>
+	<connectTimeout>30</connectTimeout>
+	<!--<wmslayers>
+		<atom:link rel="alternate" href="http://192.168.179.1:8000/geoserver/rest/workspaces/cite/wmsstores/wms_cascade/wmslayers.xml" type="application/xml"/></wmslayers>-->
+</wmsStore>
+
