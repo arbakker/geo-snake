@@ -1,6 +1,6 @@
 # README
 
-Python scripts for performing various on GeoServer and/or GeoNetwork. Some examples:
+Python scripts for to perform various tasks with GeoServer and/or GeoNetwork. Some examples:
 
 - perform schema validation of all metadata in CSW catalogue (validate_all_csw_records_geonetwork)
 - test whether all WMS layers in GeoServer are working (check_wms_layers_geoserver)
