@@ -1,0 +1,54 @@
+<wmsLayer>
+    <name>{0}</name>
+    <nativeName>{0}</nativeName>
+    <!--<namespace>
+        <name>{1}</name>
+        <atom:link rel="alternate" href="http://localhost:8000/geoserver/rest/namespaces/{1}.xml" type="application/xml"/>
+    </namespace>
+    <title>nodata_206.tif</title>
+    <description/>
+    <nativeCRS>GEOGCS["WGS 84", 
+  DATUM["World Geodetic System 1984", 
+    SPHEROID["WGS 84", 6378137.0, 298.257223563, AUTHORITY["EPSG","7030"]], 
+    AUTHORITY["EPSG","6326"]], 
+  PRIMEM["Greenwich", 0.0, AUTHORITY["EPSG","8901"]], 
+  UNIT["degree", 0.017453292519943295], 
+  AXIS["Geodetic longitude", EAST], 
+  AXIS["Geodetic latitude", NORTH], 
+  AUTHORITY["EPSG","4326"]]</nativeCRS>
+    <srs>EPSG:4326</srs>
+    <nativeBoundingBox>
+        <minx>-10.478179</minx>
+        <maxx>46.2551543333333</maxx>
+        <miny>35.92</miny>
+        <maxy>59.82</maxy>
+        <crs>EPSG:4326</crs>
+    </nativeBoundingBox>
+    <latLonBoundingBox>
+        <minx>-1301171.38825044</minx>
+        <maxx>3833865.1851455</maxx>
+        <miny>-1352811.85182138</miny>
+        <maxy>1996895.09108329</maxy>
+        <crs>EPSG:4326</crs>
+    </latLonBoundingBox>
+    <projectionPolicy>FORCE_DECLARED</projectionPolicy>
+    <enabled>true</enabled>
+    <metadata>
+        <entry key="elevation">
+            <dimensionInfo>
+                <enabled>false</enabled>
+            </dimensionInfo>
+        </entry>
+        <entry key="time">
+            <dimensionInfo>
+                <enabled>false</enabled>
+                <defaultValue/>
+            </dimensionInfo>
+        </entry>
+        <entry key="cachingEnabled">false</entry>
+    </metadata>-->
+    <store class="wmsStore">
+        <name>{1}:{2}</name>
+        <atom:link rel="alternate" href="{3}/rest/workspaces/{1}/wmsstores/{2}.xml" type="application/xml"/>
+    </store>
+</wmsLayer>

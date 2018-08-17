@@ -1,0 +1,25 @@
+<wmsLayer>
+  <name>{0}</name>
+  <mimeFormats>
+    <string>image/png</string>
+  </mimeFormats>
+  <gridSubsets>
+    <gridSubset>
+      <gridSetName>EPSG:900913</gridSetName>
+      <extent>
+              <coords>
+                <double>316625.15479515353</double>
+                <double>6567692.800948856</double>
+                <double>868613.5101392602</double>
+                <double>7117521.156529515</double>
+              </coords>
+            </extent>
+    </gridSubset>
+  </gridSubsets>
+  <wmsUrl>
+    <string>{1}</string>
+  </wmsUrl>
+  <wmsLayers>{2}</wmsLayers>
+  <wmsVersion>1.3.0</wmsVersion>
+  <vendorParameters>EXCEPTIONS=application/vnd.ogc.se_blank</vendorParameters>  
+</wmsLayer>
