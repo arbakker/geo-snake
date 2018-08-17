@@ -101,7 +101,7 @@ def main(args):
 
 
 
-# Call script with: verify_layers.py admin geoserver https://geoservices.rijkswaterstaat.nl/apps/geoserver
+# Call script with: verify_layers.py admin geoserver https://localhost:8080/geoserver
 if __name__ == '__main__':
     main(sys.argv[1:])
     

@@ -12,9 +12,9 @@ import datetime
 import time
 import socket
 
-def send_email(broken, working):
-    me = "anton.bakker@rws.nl"
-    you = "anton.bakker@rws.nl"
+def send_email(email_from, email_to, broken, working):
+    me = email_from
+    you = email_to
 
     host_name =  socket.gethostname()
     script_name = os.path.basename(__file__)
@@ -70,6 +70,8 @@ if __name__ == "__main__":
     user = config['DEFAULT']['user']
     password = config['DEFAULT']['password']
     url = config['DEFAULT']['url']
+    email_to = config['DEFAULT']['email_to']
+    email_from = config['DEFAULT']['email_from']
 
     check_featuretypes_geoserver.main([user, password, url])
     csv_path = check_featuretypes_geoserver.get_csv_path()
@@ -91,7 +93,7 @@ if __name__ == "__main__":
         status = 3
 
 
-    send_email(total_broken, total_working)
+    send_email(email_from, email_to, total_broken, total_working)
     status_string = "total fts: {0}, broken fts: {1}".format(total_working+total_broken, total_broken)
     print("{0} {1} invalid_fts={2} {3}".format(status, "Monitor-FeatureTypes-GeoServer", total_broken, status_string))
 

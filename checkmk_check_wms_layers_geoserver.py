@@ -6,14 +6,13 @@ import configparser
 
 if __name__ == "__main__":
 
-    # required to make checkmk_verify_layers.ini in this folder to set url to check with credentials:
-    # example checkmk_check_wms_layers_geoserver.ini:
+    # required to make checkmk_check.ini in this folder to set url to check with credentials:
     # [DEFAULT]
     # user = admin
     # password = geoserver
     # url = http://localhost:8000/geoserver/
     config = configparser.ConfigParser()
-    config.read('checkmk_check_wms_layers_geoserver.ini')
+    config.read('checkmk_check.ini')
     user = config['DEFAULT']['user']
     password = config['DEFAULT']['password']
     url = config['DEFAULT']['url']

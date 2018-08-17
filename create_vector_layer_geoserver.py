@@ -85,7 +85,7 @@ def main(args):
                         print("Created style: {0}:{1}".format(workspace, style_name))
 
 
-#create_vector_layer_geoserver.py http://192.168.179.1:8000/geoserver_2.13 cite postgis usa_states new_ft xml/sld.xml new_style admin geoserver
+#create_vector_layer_geoserver.py http://localhost:8080/geoserver_2.13 cite postgis usa_states new_ft xml/sld.xml new_style admin geoserver
 if __name__ == "__main__":
     main(sys.argv[1:])
     
