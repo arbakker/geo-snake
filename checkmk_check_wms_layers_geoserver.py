@@ -40,4 +40,9 @@ if __name__ == "__main__":
     else:
         status = 3
     status_string = "total layers: {0}, broken layers: {1}".format(total_working+total_broken, total_broken)
-    print("{0} {1} invalid_layers={2};1;5; {3}".format(status, "Monitor-LayerIntegrity-GeoServer", total_broken, status_string))
+    print("{0} {1} invalid_layers={2} {3}".format(status, "Monitor-LayerIntegrity-GeoServer", total_broken, status_string))
+
+
+
+
+
