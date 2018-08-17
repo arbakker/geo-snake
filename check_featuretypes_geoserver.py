@@ -67,9 +67,9 @@ def main(args):
                 broken_fts.append([ws, ft, ft_url, message])
                 
         results.append([ws, working_count, broken_count])
-        count+=1
-        if count > 2:
-            break
+        #count+=1
+        #if count > 2:
+        #    break
 
     total_broken = 0
     total_working = 0
