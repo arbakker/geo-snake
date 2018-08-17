@@ -2,6 +2,7 @@ import requests
 import os
 from lxml import etree, objectify
 
+requests.packages.urllib3.disable_warnings()
 #required due to bug, see for more https://stackoverflow.com/a/33513324
 #http.client.HTTPConnection._http_vsn = 10
 #http.client.HTTPConnection._http_vsn_str = 'HTTP/1.0'

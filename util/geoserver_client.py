@@ -168,7 +168,7 @@ class GeoserverClient:
         result = get_resource_response(resource_url, self.username, self.password, headers)
         end = time.time()
         pageload = end - start
-        print("url: {0}, response_time: {1}".format(resource_url, pageload))
+        #print("url: {0}, response_time: {1}".format(resource_url, pageload))
         return result
 
     def get_resource(self, resource_url):
@@ -176,7 +176,7 @@ class GeoserverClient:
         result = get_resource(resource_url, self.username, self.password)
         end = time.time()
         pageload = end - start
-        print("url: {0}, response_time: {1}".format(resource_url, pageload))
+        #print("url: {0}, response_time: {1}".format(resource_url, pageload))
         return result
 
     def create_resource(self, resource_url, data, headers):

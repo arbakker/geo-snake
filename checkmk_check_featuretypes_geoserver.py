@@ -4,13 +4,15 @@ import check_featuretypes_geoserver
 import csv
 import configparser
 import smtplib
-from email.mime.multipart import MIMEMultipart
-from email.mime.text import MIMEText
 import os
 import glob
 import datetime
 import time
 import socket
+from email.mime.multipart import MIMEMultipart
+from email.mime.text import MIMEText
+from email.mime.application import MIMEApplication
+from os.path import basename
 
 def send_email(email_from, email_to, broken, working):
     me = email_from
@@ -38,16 +40,18 @@ def send_email(email_from, email_to, broken, working):
     # the HTML message, is best and preferred.
     msg.attach(part1)
 
-    path = 'csv'
+    path = check_featuretypes_geoserver.get_csv_path()
     extension = 'csv'
     os.chdir(path)
-    result = [i for i in glob.glob('verify_fts*.{}'.format(extension))]
+    result = [i for i in glob.glob("verify_fts*.{0}".format(extension))]
+
 
     for csv_file in result:
-        file = open(csv_file, "r")
-        content = file.read() 
-        part_att = MIMEText(content, 'csv')
-        msg.attach(part_att)
+	with open(csv_file, "rb") as my_file:
+	    part = MIMEApplication(my_file.read(), Name=basename(csv_file))
+            part['Content-Disposition'] = 'attachment; filename="%s"' % basename(csv_file)
+	    msg.attach(part)
+	
 
     # Send the message via local SMTP server.
     s = smtplib.SMTP('localhost')
@@ -57,16 +61,16 @@ def send_email(email_from, email_to, broken, working):
     s.sendmail(me, you, msg.as_string())
     s.quit() 
 
-if __name__ == "__main__":
-
+def main():
     # required to make checkmk_verify_layers.ini in this folder to set url to check with credentials:
     # example checkmk_check_wms_layers_geoserver.ini:
     # [DEFAULT]
     # user = admin
     # password = geoserver
     # url = http://localhost:8000/geoserver/
+    base_path = os.path.abspath(os.path.dirname(__file__))
     config = configparser.ConfigParser()
-    config.read('checkmk_check.ini')
+    config.read(os.path.join(base_path, u'checkmk_check.ini'))
     user = config['DEFAULT']['user']
     password = config['DEFAULT']['password']
     url = config['DEFAULT']['url']
@@ -97,7 +101,5 @@ if __name__ == "__main__":
     status_string = "total fts: {0}, broken fts: {1}".format(total_working+total_broken, total_broken)
     print("{0} {1} invalid_fts={2} {3}".format(status, "Monitor-FeatureTypes-GeoServer", total_broken, status_string))
 
-
-
-
-
+if __name__ == "__main__":
+    main()

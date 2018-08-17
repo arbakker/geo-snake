@@ -20,8 +20,9 @@ def parse_args(args):
     return args
 
 def get_csv_path():
+    base_path = os.path.abspath(os.path.dirname(__file__))
     csv_path = "csv"
-    return csv_path
+    return os.path.join(base_path, csv_path)
 
 def get_count_csv_file(csv_path):
     count_csv_name = "verify_fts_report_count.csv"
@@ -97,7 +98,7 @@ def main(args):
         writer = csv.writer(file, delimiter='@')
         writer.writerows(broken_fts)
     end = time.time()
-    print("runtime script {0}: {1}".format(os.path.basename(__file__),end-start))
+    #print("runtime script {0}: {1}".format(os.path.basename(__file__),end-start))
 
 
 
