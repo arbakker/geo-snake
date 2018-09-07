@@ -1,6 +1,8 @@
 import requests
 import os
 from lxml import etree, objectify
+from lxml.etree import XMLParser, XMLSchema, parse, XMLSyntaxError, XML
+
 
 requests.packages.urllib3.disable_warnings()
 #required due to bug, see for more https://stackoverflow.com/a/33513324
@@ -93,17 +95,14 @@ def remove_file(filename):
 
 def validate_xml(xml):
     schema_path = "schema/gmd/gmd.xsd"
-    xml_schema_file = "schema/gmd/gmd.xsd"
-
     result = ""
-    try:
-        with open(xml_schema_file, 'rb') as xml_schema_file:
-            schema_doc = etree.XML(xml_schema_file.read(), base_url=schema_path)
-            xml_schema = etree.XMLSchema(schema_doc)
-            xmlparser = etree.XMLParser(schema=xml_schema)
-            etree.fromstring(xml, xmlparser)
-    except Exception as e:
-        result = str(e)
-    finally:
-        return result
+    with open(schema_path, 'rb') as xml_schema_file:
+         schema_doc = etree.XML(xml_schema_file.read(), base_url=schema_path)
+         schema = etree.XMLSchema(schema_doc)
+         parser = XMLParser(schema=schema)
+         xml = XML(xml)
+         if not schema.validate(xml):
+             for error in schema.error_log:
+                  result += "error: {0}, line: {1}, column {2}".format(error.message, error.line, error.column)
+    return result
 

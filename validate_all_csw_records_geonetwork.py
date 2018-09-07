@@ -1,12 +1,11 @@
 #!/usr/bin/env python
 """validate_all_csw_records_geonetwork.py: requests all records in csw catalog and validates xml schema of these records, results are saved in csv file"""
 import argparse
-import requests
+import sys
 from sys import exit
-import http.client
 from util import *
 import csv
-from csw_client import *
+from util.csw_client import *
 import os
 
 def parse_args(args):
@@ -16,7 +15,7 @@ def parse_args(args):
     return args
 
 def main(args):
-    args = parse_args()
+    args = parse_args(args)
     gn_url = args.gn_url
     csw_endpoint = "srv/dut/csw"
     csv_path = "csv"
@@ -30,16 +29,23 @@ def main(args):
 
     gn_client = CSWClient("", "", csw_url)
     all_records = gn_client.get_all_records()
-
+    count = 0 
     for record_id in all_records:
+        count += 1
         record_xml = gn_client.get_record(record_id)
-        validation_error = validate_xml(record_xml)
+        
+        if record_xml:
+            validation_error = validate_xml(record_xml)
+        else:
+            validation_error = "metadata record empty"
 
         if validation_error:
             invalid_count += 1
             errorresult.append([gn_client.get_record_url(record_id),validation_error])
         else:
             valid_count += 1
+        #if count>50:
+        #    break
 
     counts = []
     counts.append(["valid","invalid","total"])
@@ -53,11 +59,11 @@ def main(args):
     remove_file(count_csv_file)
     remove_file(errors_csv_file)
 
-    with open(count_csv_file, "w", newline="") as file:
+    with open(count_csv_file, "w") as file:
         writer = csv.writer(file)
         writer.writerows(counts)
 
-    with open(errors_csv_file, "w", newline="") as file:
+    with open(errors_csv_file, "w") as file:
         writer = csv.writer(file)
         writer.writerows(errorresult)
 

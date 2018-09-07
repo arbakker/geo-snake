@@ -1,7 +1,12 @@
-from util import *
 from lxml import etree, objectify
-import xml.etree.ElementTree as ET
-from urllib import parse
+try:
+    from urllib.parse import urlparse
+except ImportError:
+     from urlparse import urlparse
+try:
+    from ogc_util import *
+except ImportError:
+    from util.ogc_util import *
 
 class CSWClient:
 
@@ -12,9 +17,13 @@ class CSWClient:
         self.ns = {"csw":"http://www.opengis.net/cat/csw/2.0.2", "gmd":"http://www.isotc211.org/2005/gmd", "dc":"http://purl.org/dc/elements/1.1/"}
 
     def get_search_result(self, xml):
-        root = etree.fromstring(xml)
-        search_result = root.find(".//csw:SearchResults", self.ns)
-        return search_result
+        parser = etree.XMLParser(ns_clean=True, recover=True, encoding='utf-8')
+        root = etree.fromstring(xml, parser=parser)
+        search_result = root.xpath('.//csw:SearchResults', namespaces=self.ns)
+        if len(search_result)>0:
+            return search_result[0]
+        else:
+            return search_result
 
     def get_total_records(self, search_result):
         total_records = search_result.attrib['numberOfRecordsMatched']
@@ -38,8 +47,9 @@ class CSWClient:
             raise Exception("Could not find SearchResults@numberOfRecordsReturned in CSW GetRecords response")
 
     def get_record_identifiers(self, xml):
-        root = etree.fromstring(xml)
-        records = root.findall(".//dc:identifier", self.ns)
+        parser = etree.XMLParser(ns_clean=True, recover=True, encoding='utf-8')
+        root = etree.fromstring(xml, parser=parser)
+        records = root.xpath('.//dc:identifier', namespaces=self.ns)
         result =  [record.text for record in records]
         return result
 
@@ -54,8 +64,13 @@ class CSWClient:
         get_record_url = self.get_record_url(record_id)
         record_xml = get_resource_bytes(get_record_url)
         #remove csw getrecord envelop from XML
-        root = etree.fromstring(record_xml)
-        xml_md = root.find('.//gmd:MD_Metadata', self.ns)
+        parser = etree.XMLParser(ns_clean=True, recover=True, encoding='utf-8')
+        root = etree.fromstring(record_xml, parser=parser)
+        xml_md = root.xpath('.//gmd:MD_Metadata', namespaces=self.ns)
+        if len(xml_md)>0:
+             xml_md = xml_md[0]
+        else:
+             return ""
         xml_md_str = etree.tostring(xml_md, pretty_print=True)
         return xml_md_str
 
