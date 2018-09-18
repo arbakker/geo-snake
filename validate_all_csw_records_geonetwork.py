@@ -44,8 +44,6 @@ def main(args):
             errorresult.append([gn_client.get_record_url(record_id),validation_error])
         else:
             valid_count += 1
-        #if count>50:
-        #    break
 
     counts = []
     counts.append(["valid","invalid","total"])

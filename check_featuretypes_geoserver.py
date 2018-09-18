@@ -67,9 +67,7 @@ def main(args):
                 broken_fts.append([ws, ft, ft_url, message])
                 
         results.append([ws, working_count, broken_count])
-        count+=1
-        #if count > 1:
-        #    break
+        
 
     total_broken = 0
     total_working = 0
@@ -99,8 +97,6 @@ def main(args):
         writer.writerows(broken_fts)
     end = time.time()
     #print("runtime script {0}: {1}".format(os.path.basename(__file__),end-start))
-
-
 
 # Call script with: verify_layers.py admin geoserver https://localhost:8080/geoserver
 if __name__ == '__main__':
